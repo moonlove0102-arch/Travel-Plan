@@ -26,14 +26,14 @@ rows = [
         "Google_Maps_Link": "https://www.google.com/maps/place/Wieskirche/@47.6806,10.9008,17z"
     },
     {
-        "Name": "【著名景點/高山湖泊】瓦爾興湖・凱塞爾隘口觀景台 (Walchensee Kesselberg)",
-        "Time": "2026-10-07 11:00 - 11:20",
+        "Name": "【高山湖泊/著名景點】瓦爾興湖・赫爾佐格纜車湖畔大停車場 (Parkplatz Herzogstandbahn)",
+        "Time": "2026-10-07 11:00 - 11:30",
         "Category": "⭐ 著名景點 / 高山湖泊",
-        "Address": "Kesselbergstraße (B11), 82431 Kochel am See, Germany",
-        "Latitude": 47.6258,
-        "Longitude": 11.3414,
-        "Description": "【著名景點 / 高山碧湖】被譽為「巴伐利亞的馬爾地夫/加勒比海」，德國海拔最高且最深的高山湖泊之一。湖水呈現翡翠綠與寶石藍，在凱塞爾隘口 (Kesselberg Pass) 觀景停車區臨停 15-20 分鐘俯瞰震撼全景。",
-        "Google_Maps_Link": "https://www.google.com/maps/place/Aussichtspunkt+Kesselberg/@47.6258,11.3414,17z"
+        "Address": "Am Tanneneck 6, 82432 Kochel am See, Germany",
+        "Latitude": 47.5960,
+        "Longitude": 11.3170,
+        "Description": "【著名景點 / 瓦爾興湖最佳湖畔停靠點】被譽為「巴伐利亞馬爾地夫/加勒比海」的純淨翡翠碧湖。停泊於赫爾佐格峰纜車站專屬大停車場（車位極多、平價好停）。下車即可步上大片綠茵湖濱公園 (Seepromenade)，以最開闊的全景視野眺望廣袤翡翠藍水面與對岸 Jochberg 阿爾卑斯群山，湖畔設有長椅與漫步木棧道，停留約 20-30 分鐘。",
+        "Google_Maps_Link": "https://www.google.com/maps/place/Parkplatz+Herzogstandbahn/@47.5960,11.3170,17z"
     },
     {
         "Name": "【基姆湖停車場】Prien Hafen Stock S1",

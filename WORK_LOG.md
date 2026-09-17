@@ -107,6 +107,9 @@
     1. 更新 `update_maps.py` 與 `generate_kml.py`，導入 `xml.sax.saxutils.escape` 全面轉義特殊字元。
     2. 重新產出通過 100% XML 嚴格校驗的 `google_maps_trip_import.kml`（共 30 處地標）。
     3. 額外打包產出 `google_maps_trip_import.kmz` 壓縮格式，提升相容性。
+- **Day 7 瓦爾興湖停車與觀景點優化（採納方案 B）**：
+  - 將原半山腰狹窄避車彎調整為瓦爾興湖全景最開闊、車位最充足之官方大停車場 **【Parkplatz Herzogstandbahn】**（`Am Tanneneck 6, 82432 Kochel am See`，坐標 `47.5960, 11.3170`）。
+  - 全面更新 `parking_guide.md`、`trip_review_guide.md`、CSV 地標與 KMZ 匯入檔。
 
 ---
 
