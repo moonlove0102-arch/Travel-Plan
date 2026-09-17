@@ -1,4 +1,5 @@
 import csv
+import xml.sax.saxutils as saxutils
 
 csv_path = r"c:\Code\Antigravity\Travel-Plan\google_maps_trip_import.csv"
 kml_path = r"c:\Code\Antigravity\Travel-Plan\google_maps_trip_import.kml"
@@ -354,7 +355,7 @@ kml_header = """<?xml version="1.0" encoding="UTF-8"?>
         <color>ffd1881e</color>
         <scale>1.2</scale>
         <Icon>
-          <href>http://maps.google.com/mapfiles/kml/shapes/parking_lot.png</href>
+          <href>https://maps.google.com/mapfiles/kml/shapes/parking_lot.png</href>
         </Icon>
       </IconStyle>
     </Style>
@@ -365,7 +366,7 @@ kml_header = """<?xml version="1.0" encoding="UTF-8"?>
         <color>ff2257ff</color>
         <scale>1.2</scale>
         <Icon>
-          <href>http://maps.google.com/mapfiles/kml/shapes/camera.png</href>
+          <href>https://maps.google.com/mapfiles/kml/shapes/camera.png</href>
         </Icon>
       </IconStyle>
     </Style>
@@ -376,7 +377,7 @@ kml_header = """<?xml version="1.0" encoding="UTF-8"?>
         <color>ffaa248e</color>
         <scale>1.2</scale>
         <Icon>
-          <href>http://maps.google.com/mapfiles/kml/shapes/lodging.png</href>
+          <href>https://maps.google.com/mapfiles/kml/shapes/lodging.png</href>
         </Icon>
       </IconStyle>
     </Style>
@@ -387,7 +388,7 @@ kml_header = """<?xml version="1.0" encoding="UTF-8"?>
         <color>ff47a043</color>
         <scale>1.2</scale>
         <Icon>
-          <href>http://maps.google.com/mapfiles/kml/shapes/gas_stations.png</href>
+          <href>https://maps.google.com/mapfiles/kml/shapes/gas_stations.png</href>
         </Icon>
       </IconStyle>
     </Style>
@@ -398,7 +399,7 @@ kml_header = """<?xml version="1.0" encoding="UTF-8"?>
         <color>ffc1ac00</color>
         <scale>1.2</scale>
         <Icon>
-          <href>http://maps.google.com/mapfiles/kml/shapes/marina.png</href>
+          <href>https://maps.google.com/mapfiles/kml/shapes/marina.png</href>
         </Icon>
       </IconStyle>
     </Style>
@@ -409,7 +410,7 @@ kml_header = """<?xml version="1.0" encoding="UTF-8"?>
         <color>ff008cfb</color>
         <scale>1.2</scale>
         <Icon>
-          <href>http://maps.google.com/mapfiles/kml/shapes/coffee.png</href>
+          <href>https://maps.google.com/mapfiles/kml/shapes/coffee.png</href>
         </Icon>
       </IconStyle>
     </Style>
@@ -420,7 +421,7 @@ kml_header = """<?xml version="1.0" encoding="UTF-8"?>
         <color>ff7a6e54</color>
         <scale>1.2</scale>
         <Icon>
-          <href>http://maps.google.com/mapfiles/kml/shapes/cabs.png</href>
+          <href>https://maps.google.com/mapfiles/kml/shapes/cabs.png</href>
         </Icon>
       </IconStyle>
     </Style>
@@ -431,7 +432,7 @@ kml_header = """<?xml version="1.0" encoding="UTF-8"?>
         <color>ffab4939</color>
         <scale>1.2</scale>
         <Icon>
-          <href>http://maps.google.com/mapfiles/kml/shapes/airports.png</href>
+          <href>https://maps.google.com/mapfiles/kml/shapes/airports.png</href>
         </Icon>
       </IconStyle>
     </Style>
@@ -442,6 +443,7 @@ kml_footer = """  </Document>
 placemarks = []
 for r in rows:
     name = r["Name"]
+    escaped_name = saxutils.escape(name)
     time_val = r["Time"]
     desc = r["Description"]
     addr = r["Address"]
@@ -459,7 +461,7 @@ for r in rows:
     ]]>"""
     
     pm = f"""    <Placemark>
-      <name>{name}</name>
+      <name>{escaped_name}</name>
       <styleUrl>#{style_id}</styleUrl>
       <description>{desc_html}</description>
       <Point>
@@ -472,3 +474,4 @@ with open(kml_path, "w", encoding="utf-8") as f:
     f.write(kml_header + "\n".join(placemarks) + "\n" + kml_footer)
 
 print("Updated KML written.")
+

@@ -96,9 +96,21 @@
   - 機票（去程星宇、回程國泰）、租車（Nextmove Tesla Model 3 RWD 全險）、12 晚住宿、跨國巴士票、熱門重點門票全數到位。
   - 路線導航與自駕景點停車指南全數完備。
 
+## 2026-09-17
+**執行摘要**：
+- **修正 Google 我的地圖 KML 匯入異常問題**：
+  - **根本原因診斷**：
+    1. 檔案層級：原 KML 內地標名稱包含未轉義的 `&` 符號（如巴德伊舍 & 皇家甜點店、聖巴多羅買教堂 & 煙燻鱒魚），造成 XML 語法錯誤 (`ParseError: not well-formed (invalid token)`)。Google 伺服器校驗失敗時，前端 UI 會丟出模糊的「不允許匿名上傳」錯誤彈窗。
+    2. 協定層級：原樣式圖示引用之 `http://` 網址全數升級為 `https://`，防止瀏覽器 Mixed-Content 阻擋。
+    3. 操作層級：整理 Google My Maps 對「不允許匿名上傳」之權益排查指南（推薦透過 Google Drive 匯入或直接匯入 CSV 檔）。
+  - **修復措施**：
+    1. 更新 `update_maps.py` 與 `generate_kml.py`，導入 `xml.sax.saxutils.escape` 全面轉義特殊字元。
+    2. 重新產出通過 100% XML 嚴格校驗的 `google_maps_trip_import.kml`（共 30 處地標）。
+    3. 額外打包產出 `google_maps_trip_import.kmz` 壓縮格式，提升相容性。
+
 ---
 
-## 旅程籌備最新進度總盤點 (截至 2026-09-16)
+## 旅程籌備最新進度總盤點 (截至 2026-09-17)
 
 ### ✅ 已完成項目 (100% 就緒)
 
