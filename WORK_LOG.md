@@ -134,9 +134,20 @@
   - 完整統整捷克（菠丹妮死海泥皂/玫瑰護手霜、蔓菲蘿啤酒花保養、Koh-i-Noor 七彩魔術鉛筆 6 支、百年溫泉薄餅）、奧地利（Fürst 原創銀藍手工莫札特巧克力、Manner 威化餅、哈修塔特天然岩鹽護手霜/研磨鹽罐）、德國（Knoppers、Toffifee、HARIBO 果汁小熊、dm 發泡錠、Dallmayr 皇室咖啡、Grassl 高山酒、雙人牌指甲剪）。
   - 規劃「前輕後重、善用 Tesla 後行李箱、最後一日慕尼黑瑪利亞廣場大採買」動線，並附上高清產品照片與退稅攻略。
 
+## 2026-09-22
+**執行摘要**：
+- **Git 儲存庫全局大清點與冗餘/過時文件清理**：
+  - 刪除舊版過時行程 PDF `europe_ev_roadtrip_itinerary_enhanced.pdf`（其 10 頁內容已 100% 被最新版 `trip_review_guide.md` 與 `trip_review_guide.html` 覆蓋並深度升級）。
+  - 刪除純法律告知文件 `IBE_-Datenschutz-_DE.pdf`（DIRS21 線上訂房系統之一般個資保護政策，無行程實質價值）。
+  - 刪除早期 7 月份機票比價草稿 `flight_research_october.md`（去程星宇航空 JX101 與回程國泰航空均已全額開票訂妥，資訊已完整移轉至核心文件）。
+  - 清理未使用的舊版 AI 伴手禮圖片（`souvenirs_czech.jpg`、`souvenirs_austria.jpg`、`souvenirs_germany.jpg`、`kohinoor_magic_jumbo.jpg`），全面由真實商品型錄拼接圖看板（`_real.jpg`）取代。
+- **行前準備指南 (`trip_preparation_guide.md`) 全面同步**：
+  - 租車章節全面更新為已簽約付清之 **Nextmove Tesla Model 3 RWD**（合約 VNN-26-106734-2，車牌 W-AK 7176E），去除早期 SIXT 暫定方案。
+  - 時間軸狀態更新至 100% 準備就緒。
+
 ---
 
-## 旅程籌備最新進度總盤點 (截至 2026-09-21)
+## 旅程籌備最新進度總盤點 (截至 2026-09-22)
 
 ### ✅ 已完成項目 (核心骨架 100% 就緒)
 
