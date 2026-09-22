@@ -462,11 +462,12 @@ def generate_standard_html(md_file_path: str, output_html_path: str):
 if __name__ == '__main__':
     base = Path(__file__).parent
     
-    # 3 core documents requested by user
+    # Core documents
     core_files = [
         "trip_review_guide.md",
         "souvenir_guide.md",
-        "trip_preparation_guide.md"
+        "trip_preparation_guide.md",
+        "parking_guide.md"
     ]
     
     for filename in core_files:

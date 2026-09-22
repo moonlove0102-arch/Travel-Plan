@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>【A4雙頁小冊子版】Parking Guide</title>
+<style>
+  :root {
+    --primary: #1e3a8a;
+    --text: #1f2937;
+    --bg: #f1f5f9;
+    --card-bg: #ffffff;
+    --border: #cbd5e1;
+    --accent: #2563eb;
+  }
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang TC", "Microsoft JhengHei", sans-serif;
+    color: var(--text);
+    background-color: var(--bg);
+    margin: 0;
+    padding: 16px;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  /* Top bar for instructions */
+  .toolbar {
+    max-width: 1280px;
+    margin: 0 auto 16px auto;
+    background: #1e293b;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  }
+  .toolbar-title {
+    font-weight: 600;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .toolbar-hint {
+    font-size: 12px;
+    color: #94a3b8;
+  }
+  .print-btn {
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 8px 18px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .print-btn:hover {
+    background: #1d4ed8;
+  }
+
+  /* Main Booklet Container */
+  .booklet-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    background: var(--card-bg);
+    padding: 28px 36px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    column-count: 2;
+    column-gap: 24mm;
+    column-rule: 1px dashed #cbd5e1;
+  }
+
+  h1 {
+    color: var(--primary);
+    border-bottom: 2px solid var(--border);
+    padding-bottom: 6px;
+    margin-top: 0;
+    font-size: 18px;
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+  h2 {
+    color: var(--primary);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 4px;
+    margin-top: 20px;
+    margin-bottom: 8px;
+    font-size: 15px;
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+  h3, h4 {
+    color: #1e293b;
+    margin-top: 14px;
+    margin-bottom: 6px;
+    font-size: 13.5px;
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+  p, ul, ol {
+    margin-top: 4px;
+    margin-bottom: 8px;
+  }
+  li {
+    margin-bottom: 2px;
+  }
+  img {
+    max-width: 100%;
+    max-height: 220px;
+    object-fit: contain;
+    border-radius: 6px;
+    margin: 8px auto;
+    display: block;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 8px 0;
+    font-size: 11px;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  th, td {
+    border: 1px solid var(--border);
+    padding: 5px 7px;
+    text-align: left;
+  }
+  th {
+    background-color: #f8fafc;
+    font-weight: 600;
+    color: #334155;
+  }
+  tr:nth-child(even) {
+    background-color: #fdfdfd;
+  }
+  blockquote {
+    border-left: 3px solid var(--accent);
+    margin: 8px 0;
+    padding: 6px 12px;
+    background-color: #eff6ff;
+    border-radius: 0 6px 6px 0;
+    color: #1e40af;
+    font-size: 11.5px;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  code {
+    background: #f1f5f9;
+    padding: 1px 4px;
+    border-radius: 3px;
+    font-size: 0.9em;
+    color: #b91c1c;
+  }
+  hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 16px 0;
+  }
+
+  /* Mobile responsiveness on screen */
+  @media screen and (max-width: 768px) {
+    .booklet-container {
+      column-count: 1;
+      padding: 16px;
+    }
+    .toolbar {
+      flex-direction: column;
+      gap: 10px;
+      text-align: center;
+    }
+  }
+
+  /* Print optimization: 2-up on Landscape A4 with Center Fold Line */
+  @media print {
+    @page {
+      size: A4 landscape;
+      margin: 8mm 10mm;
+    }
+    body {
+      background: white !important;
+      color: #000 !important;
+      font-size: 9pt !important;
+      line-height: 1.38 !important;
+      padding: 0 !important;
+    }
+    .toolbar {
+      display: none !important;
+    }
+    .booklet-container {
+      box-shadow: none !important;
+      border-radius: 0 !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      max-width: 100% !important;
+      width: 100% !important;
+      column-count: 2 !important;
+      column-gap: 16mm !important;
+      column-rule: 1px dashed #94a3b8 !important; /* 對摺虛線 */
+    }
+    h1 {
+      font-size: 13pt !important;
+      margin-top: 4pt !important;
+      margin-bottom: 4pt !important;
+    }
+    h2 {
+      font-size: 11pt !important;
+      margin-top: 10pt !important;
+      margin-bottom: 4pt !important;
+    }
+    h3, h4 {
+      font-size: 9.5pt !important;
+      margin-top: 6pt !important;
+      margin-bottom: 2pt !important;
+    }
+    p, ul, ol {
+      margin-top: 2pt !important;
+      margin-bottom: 4pt !important;
+    }
+    table {
+      font-size: 7.5pt !important;
+      margin: 4pt 0 !important;
+    }
+    th, td {
+      padding: 3pt 4pt !important;
+    }
+    blockquote {
+      padding: 3pt 6pt !important;
+      margin: 3pt 0 !important;
+      font-size: 8pt !important;
+    }
+    img {
+      max-height: 150px !important;
+      margin: 4pt auto !important;
+    }
+  }
+</style>
+</head>
+<body>
+<div class="toolbar">
+  <div class="toolbar-title">
+    <span>📖 A4 橫向雙頁小冊子版</span>
+    <span class="toolbar-hint">(列印時每張 A4 紙包含左右兩頁，中間附對摺虛線，印出後直接對摺即成 A5 口袋手冊)</span>
+  </div>
+  <button class="print-btn" onclick="window.print()">🖨️ 列印小冊子 (Ctrl + P)</button>
+</div>
+<div class="booklet-container">
+<h1>🅿️ 歐洲純電自駕 — 全程景點停車場完整指南</h1>
+<blockquote>
+<p>本指南彙整自駕路段（Day 6–12）各核心景點與過夜地點的官方/推薦停車場、導航地址、GPS 座標、收費標準與上山動線。</p>
+</blockquote>
+<hr />
+<h2>📍 Day 6（10/6）：新天鵝堡 (Neuschwanstein Castle)</h2>
+<blockquote>
+<p>⚠️ <strong>新天鵝堡交通鐵律</strong>：所有私家車<strong>嚴禁開上城堡山</strong>！所有車輛必須停放在山下小鎮<strong>霍恩施萬高 (Hohenschwangau)</strong> 的官方停車場（P1–P4），再轉乘接駁巴士、馬車或步行上山。</p>
+</blockquote>
+<h3>🏆 首選推薦：【Parkplatz P4】（阿爾卑斯湖畔停車場）</h3>
+<ul>
+<li><strong>推薦理由</strong>：
+<ol>
+<li><strong>離接駁巴士站（Pendelbus）最近</strong>：停好車步行 2 分鐘即達前往「瑪麗恩橋 (Marienbrücke)」的接駁公車乘車處。</li>
+<li><strong>緊鄰阿爾卑斯湖 (Alpsee)</strong>：下山回停車場後，可直接在湖畔漫步放鬆。</li>
+</ol>
+</li>
+<li><strong>導航地址</strong>：<code>Alpseestraße 27, 87645 Hohenschwangau, Germany</code></li>
+<li><strong>Google Maps 搜尋</strong>：<code>Parkplatz P4 Hohenschwangau</code></li>
+<li><strong>GPS 座標</strong>：<code>47.5539, 10.7362</code></li>
+<li><strong>收費標準</strong>：
+<ul>
+<li>小型車（汽車）：<strong>€12.00</strong>（前 6 小時），之後每小時 +€1.00（每日上限 €16.00）。</li>
+<li>支援刷卡（信用卡 / 感應支付）或現金投幣。</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h3>🥈 備選推薦：【Parkplatz P3】</h3>
+<ul>
+<li><strong>適用時機</strong>：若 P4 碰巧客滿，或您打算全程「健行徒步上山」（不搭接駁車）。</li>
+<li><strong>特色</strong>：位於徒步登山步道入口旁，步行上山至新天鵝堡約需 35–40 分鐘（上坡路段）。</li>
+<li><strong>導航地址</strong>：<code>Schwangauer Str. 2, 87645 Hohenschwangau</code></li>
+<li><strong>Google Maps 搜尋</strong>：<code>Parkplatz P3 Hohenschwangau</code></li>
+</ul>
+<hr />
+<h3>🚌 從 P4 停車場前往新天鵝堡動線攻略（配合 14:55 英文導覽）</h3>
+<pre><code>[13:15 富森出發] 🚗 8-10 分鐘
+      ↓
+[13:30 抵達 P4 停車場停妥車輛]
+      ↓ 步行 2 分鐘
+[13:35 接駁巴士站 (P4 旁)]
+      ↓ 搭乘接駁車（車程約 10-12 分鐘，來回票 €5.00，單程 €3.50）
+[13:50 抵達山頂落客點 (Jugend/瑪麗恩橋旁)]
+      ↓ 步行 3 分鐘
+[13:55 - 14:25 瑪麗恩橋 (Marienbrücke)]
+      👉 拍攝經典明信片角度的新天鵝堡全景照
+      ↓ 沿下坡平緩步道步行約 12-15 分鐘
+[14:40 抵達新天鵝堡大門閘口 (Turnstile)]
+      👉 稍作喘息，欣賞平原湖景
+[14:55 準時掃描 QR Code 進入參加導覽！]
+</code></pre>
+<blockquote>
+<p>💡 <strong>貼心提醒</strong>：</p>
+<ol>
+<li><strong>門票時段極為嚴格</strong>：遲到哪怕 1 分鐘閘門即自動上鎖作廢，強烈建議依上述時程，<strong>最遲 13:30 務必停妥在 P4 停車場</strong>。</li>
+<li><strong>接駁巴士現場買票</strong>：接駁車無法線上預購，直接在站牌現場排隊購票（可付現或刷卡）。</li>
+<li><strong>參觀結束後</strong>：參觀約 35 分鐘，約 15:35 結束。可選擇散步下山（下坡約 25 分鐘很輕鬆）直達 P4，或至接駁車站搭車下山。</li>
+</ol>
+</blockquote>
+<hr />
+<h2>📍 Day 7（10/7）：阿爾卑斯大道 ➔ 基姆湖 (Chiemsee) ➔ 薩爾斯堡 (Salzburg)</h2>
+<h3>⭐ 著名景點一：【維斯朝聖教堂 (Wieskirche)】— 世界文化遺產、洛可可奇蹟</h3>
+<ul>
+<li><strong>推薦理由</strong>：座落於阿爾卑斯高山草甸之中，外觀樸實祥和，內部為歐洲洛可可藝術登峰造極之世界遺產奇蹟。</li>
+<li><strong>建議停留時間</strong>：<strong>2026-10-07 09:40 – 10:20</strong>（草地漫步、參觀教堂）</li>
+<li><strong>停車場名稱</strong>：<code>Parkplatz Wieskirche</code></li>
+<li><strong>導航地址</strong>：<code>Wies 12, 86989 Steingaden, Germany</code></li>
+<li><strong>Google Maps 搜尋</strong>：<code>Parkplatz Wieskirche</code></li>
+<li><strong>GPS 座標</strong>：<code>47.6806, 10.9008</code></li>
+<li><strong>收費標準</strong>：前 2 小時僅 <strong>€2.00</strong>（自動繳費機，支援投幣/刷卡）。</li>
+<li><strong>動線</strong>：停妥車後，沿著平緩無障礙步道步行約 3 分鐘即達教堂。</li>
+</ul>
+<hr />
+<h3>⭐ 著名景點二：【瓦爾興湖・赫爾佐格纜車湖畔大停車場 (Parkplatz Herzogstandbahn)】— 巴伐利亞馬爾地夫</h3>
+<ul>
+<li><strong>推薦理由</strong>：
+<ol>
+<li><strong>瓦爾興湖最佳全景視野</strong>：下車即是開闊平緩的綠茵湖濱公園 (Seepromenade)，以最壯闊的視角眺望「巴伐利亞馬爾地夫」純淨的翡翠藍與寶石綠湖水，對岸為雄偉的 Jochberg 阿爾卑斯山脈。</li>
+<li><strong>官方大停車場、零停車焦慮</strong>：全湖腹地最廣、車位最多，完全免除隘口狹窄路肩難停與取締問題。</li>
+<li><strong>湖畔休閒設施完善</strong>：設有湖濱漫步木棧道、景觀長椅、公共洗手間與湖畔輕食。</li>
+</ol>
+</li>
+<li><strong>建議停留時間</strong>：<strong>2026-10-07 11:00 – 11:30</strong>（臨停 20–30 分鐘湖畔散步拍照）</li>
+<li><strong>停車場名稱</strong>：<code>Parkplatz Herzogstandbahn</code>（赫爾佐格纜車大停車場）</li>
+<li><strong>導航地址</strong>：<code>Am Tanneneck 6, 82432 Kochel am See, Germany</code></li>
+<li><strong>Google Maps 搜尋</strong>：<code>Parkplatz Herzogstandbahn</code></li>
+<li><strong>GPS 座標</strong>：<code>47.5960, 11.3170</code></li>
+<li><strong>收費標準</strong>：單日約 €4.00 – €7.00（支援自動繳費機）。</li>
+<li><strong>自駕動線提醒</strong>：自富森開行 B11 翻過凱塞爾隘口 (Kesselberg Pass, P23) 後順勢下坡，經過北岸小村 Urfeld 沿湖畔續行約 3-4 分鐘即抵達西岸大停車場。</li>
+</ul>
+<hr />
+<h3>🅿️ 中繼停靠點三：【Großparkplatz Hafen Stock S1】（基姆湖普林碼頭停車場）</h3>
+<ul>
+<li><strong>推薦理由</strong>：
+<ol>
+<li><strong>基姆湖最大核心港口</strong>：看大渡輪、百年復古蒸汽火車、湖畔散步。</li>
+<li><strong>車位極多、平價好停</strong>：容量達數百輛車，單日票僅約 €6.50。</li>
+</ol>
+</li>
+<li><strong>建議停放時間</strong>：<strong>2026-10-07 12:15 – 13:45</strong>（午餐與湖濱散步）</li>
+<li><strong>導航地址</strong>：<code>Seestraße 118, 83209 Prien am Chiemsee, Germany</code></li>
+<li><strong>Google Maps 搜尋</strong>：<code>Parkplatz Hafen Stock S1</code></li>
+<li><strong>GPS 座標</strong>：<code>47.8596, 12.3664</code></li>
+<li><strong>收費標準</strong>：單日票約 €6.50（全天 24 小時開放，支援刷卡與自動繳費機）。</li>
+</ul>
+<hr />
+<h3>⚡ 中繼補電推薦：【Tesla Supercharger Bernau am Chiemsee】</h3>
+<ul>
+<li><strong>特色</strong>：位於 A8 高速公路交流道旁（下交流道 1 分鐘即達），配備 8 樁 250kW V3 超充。</li>
+<li><strong>建議時間</strong>：<strong>2026-10-07 12:00 前後</strong>（補電 15–20 分鐘即可直達薩爾斯堡）。</li>
+<li><strong>導航地址</strong>：<code>Theodor-Sanne-Straße 4, 83233 Bernau am Chiemsee, Germany</code></li>
+<li><strong>GPS 座標</strong>：<code>47.8105, 12.3694</code></li>
+<li><strong>周邊設施</strong>：Shell 大型加油站、Burger King、洗手間。</li>
+</ul>
+<hr />
+<h3>🅿️ 薩爾斯堡官方確定停車點：【H+ Hotel 地下停車場 (Tiefgarage Hauptbahnhof)】</h3>
+<ul>
+<li><strong>確定策略</strong>：<strong>直奔飯店停放</strong>！免去開車進薩爾斯堡老城狹窄單行道與徒步區管制的壓力，停妥車後搭電梯直達飯店大廳 Check-in 放行李。</li>
+<li><strong>建議抵達停妥時間</strong>：<strong>2026-10-07 14:45 – 15:00</strong></li>
+<li><strong>導航地址</strong>：<code>Südtiroler Pl. 13, 5020 Salzburg, Austria</code></li>
+<li><strong>Google Maps 搜尋</strong>：<code>H+ Hotel Salzburg</code> 或 <code>Contipark Tiefgarage Hauptbahnhof Salzburg</code></li>
+<li><strong>GPS 座標</strong>：<code>47.8136, 13.0453</code></li>
+<li><strong>停車場入口與動線</strong>：
+<ul>
+<li>車輛自 Südtiroler Platz 駛入中央車站地下停車場（Tiefgarage Hauptbahnhof / Forum 1）。</li>
+<li>停妥後依指標搭乘電梯直達 H+ Hotel 大廳辦理入住與卸下行李。</li>
+</ul>
+</li>
+<li><strong>前往薩爾斯堡要塞 (Festung Hohensalzburg) 動線</strong>：
+<ul>
+<li><strong>步行路線（推薦，悠閒散步約 20 分鐘）</strong>：
+飯店出發 ➔ 步行穿過 <strong>米拉貝爾宮花園 (Mirabellgarten)</strong>（《真善美》場景） ➔ 穿過莫札特行人步橋 (Makartsteg) 跨過薩爾斯河 ➔ 進入糧食胡同 (Getreidegasse) 與主教座堂 ➔ 搭乘 Festungsbahn 纜車直上要塞看夕陽。</li>
+<li><strong>公車路線（省力，約 8 分鐘）</strong>：
+飯店門口火車站前搭乘 <strong>Obus 1, 3, 5, 6 號無軌電車</strong>，直達 Rathaus（老城市政廳）下車即達老城心臟地帶。</li>
+</ul>
+</li>
+</ul>
+<hr />
+<p><em>(備註：若日後臨時想改直奔老城，亦可參考備案山壁停車場 Altstadtgarage Mitte，地址：<code>Hildmannplatz 1, 5020 Salzburg</code>)</em></p>
+<hr />
+<h2>📍 Day 8（10/8）：薩爾茨卡默古特湖區 ➔ 達赫斯坦 (Dachstein) ➔ 上特勞恩</h2>
+<h3>⭐ 上午推薦停靠：【巴德伊舍 (Bad Ischl)】— 奧匈帝國皇家溫泉小鎮 &amp; 皇家甜點</h3>
+<ul>
+<li><strong>停靠亮點</strong>：西西公主與奧匈帝國皇帝相遇相戀的皇家小鎮，品嚐百年名店 Café Zauner 甜點與咖啡。</li>
+<li><strong>建議停放時間</strong>：<strong>2026-10-08 10:45 – 11:30</strong></li>
+<li><strong>停車場名稱</strong>：<code>Parkplatz Zentrum / Kurhaus</code></li>
+<li><strong>導航地址</strong>：<code>Auböckplatz 5, 4820 Bad Ischl, Austria</code></li>
+<li><strong>Google Maps 搜尋</strong>：<code>Parkplatz Zentrum Bad Ischl</code></li>
+<li><strong>GPS 座標</strong>：<code>47.7118, 13.6234</code></li>
+<li><strong>動線</strong>：停妥車後步行 3 分鐘即達百年御用甜點店 <strong>Café Zauner</strong>（<code>Pfarrgasse 7</code>），外帶或內用經典榛果雪茄蛋糕 (Zaunerstollen)。</li>
+</ul>
+<hr />
+<h3>🅿️ 下午核心目標：【達赫斯坦纜車站停車場 (Dachstein Krippenstein Talstation)】</h3>
+<ul>
+<li><strong>重要性</strong>：<strong>全日核心景點</strong>！搭乘纜車登巨型冰洞與五指觀景台之唯一出發基地。</li>
+<li><strong>建議抵達停妥時間</strong>：<strong>2026-10-08 12:45 前</strong>（配合 13:00 刷票搭乘第一段纜車）</li>
+<li><strong>停車場名稱</strong>：<code>Dachstein Krippenstein-Seilbahn Talstation Parkplatz</code></li>
+<li><strong>導航地址</strong>：<code>Winkl 34, 4831 Obertraun, Austria</code></li>
+<li><strong>Google Maps 搜尋</strong>：<code>Dachstein Krippenstein-Seilbahn Talstation</code></li>
+<li><strong>GPS 座標</strong>：<code>47.5337, 13.7058</code></li>
+<li><strong>收費標準</strong>：
+<ul>
+<li><strong>車牌自動辨識系統</strong>（無票卡）。</li>
+<li>第一小時免費，<strong>日間單日票僅 €5.00</strong>。</li>
+</ul>
+</li>
+<li><strong>換裝與搭乘動線</strong>：
+<ul>
+<li>12:00–12:45：山下輕鬆吃午餐，穿常規秋裝與健行鞋。</li>
+<li>12:50：回車上取出厚外套、毛帽、手套（隨身攜帶，先不穿）。</li>
+<li>13:00：刷套票搭第 1 段纜車至 Schönbergalm 站。</li>
+<li>13:05–13:20：健行 15 分鐘上坡步道至冰洞入口，<strong>於洞口穿上厚外套與毛帽</strong>，溫暖享受 50 分鐘冰洞導覽！</li>
+<li>14:30：搭第 2 段纜車直衝海拔 2,100m 山頂，漫步至五指觀景台 (5 Fingers) 俯瞰懸崖絕景！</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2>📍 Day 9（10/9）：哈修塔特早晨 ➔ 辛特湖 (Hintersee) ➔ 魔法森林 (Zauberwald) ➔ 拉姆紹 (Ramsau)</h2>
+<h3>🅿️ 下午核心目標：【Parkplatz Seeklause (P1)】（辛特湖與魔法森林專屬停車場）</h3>
+<blockquote>
+<p>⚠️ <strong>Google Maps 導航關鍵提醒</strong>：</p>
+<ul>
+<li><strong>切勿導航至「Seeklause - Zauberwald」</strong>！那是辛特湖出水口木橋水閘與行人步道入口景點標記，車輛無法直接駛入。</li>
+<li><strong>導航目標請務必設定為「Parkplatz Seeklause」</strong>（車輛停車場專屬標記，位於馬路旁）。</li>
+</ul>
+</blockquote>
+<ul>
+<li><strong>推薦理由</strong>：
+<ol>
+<li><strong>地理位置絕佳</strong>：位於辛特湖東南側湖畔公路（Hinterseer Str. 104），正好座落在<strong>辛特湖水閘 (Seeklause)</strong> 與<strong>魔法森林步道入口</strong>旁。</li>
+<li><strong>漫步動線最順暢</strong>：停好車即可先走進魔法森林享受巨石奔流森林浴，折返或繞行辛特湖環湖木棧道一圈（平緩優美，約 45–60 分鐘）。</li>
+</ol>
+</li>
+<li><strong>建議抵達停妥時間</strong>：<strong>2026-10-09 13:30 – 16:30</strong></li>
+<li><strong>停車場名稱</strong>：<code>Parkplatz Seeklause</code>（當地健行指標記為 P1 / Seeklause）</li>
+<li><strong>導航地址</strong>：<code>Hinterseer Str. 104, 83486 Ramsau bei Berchtesgaden, Germany</code></li>
+<li><strong>Google Maps 搜尋</strong>：<code>Parkplatz Seeklause</code> 或 <code>Parkplatz Seeklause Ramsau</code></li>
+<li><strong>GPS 座標</strong>：<code>47.6044, 12.8585</code></li>
+<li><strong>Google Maps 直達連結</strong>：<a href="https://www.google.com/maps/place/Parkplatz+Seeklause/@47.6044,12.8585,17z">開啟導航</a></li>
+<li><strong>收費標準</strong>：
+<ul>
+<li>約 <strong>€5.00 – €7.00</strong>（依停放時長，支援自動繳費機 / 投幣 / 刷卡 / Parkster App）。</li>
+</ul>
+</li>
+<li><strong>洗手間</strong>：停車場旁設有公用洗手間（WC）。</li>
+</ul>
+<hr />
+<h3>⭐ 傍晚經典停靠：【拉姆紹教堂停車場 (Pfarrkirche St. Sebastian)】</h3>
+<ul>
+<li><strong>推薦理由</strong>：回飯店（Explorer Hotel）順路停靠 15–20 分鐘，拍攝阿爾卑斯最具代表性的溪流木橋小教堂（德國最著名明信片景點之一）。</li>
+<li><strong>建議停放時間</strong>：<strong>2026-10-09 16:45 – 17:15</strong></li>
+<li><strong>停車場名稱</strong>：<code>Parkplatz Kirche Ramsau</code>（教堂對面或遊客中心旁專用停車位）</li>
+<li><strong>導航地址</strong>：<code>Im Tal 82, 83486 Ramsau bei Berchtesgaden, Germany</code></li>
+<li><strong>GPS 座標</strong>：<code>47.6075, 12.8943</code></li>
+<li><strong>Google Maps 直達連結</strong>：<a href="https://www.google.com/maps/place/Pfarrkirche+St.+Sebastian/@47.6075,12.8943,17z">開啟導航</a></li>
+</ul>
+<hr />
+<h2>📍 Day 10（10/10）：⭐⭐⭐ 國王湖 (Königssee) 全日深度探索（行程最高光）</h2>
+<blockquote>
+<p>⚠️ <strong>國王湖交通鐵律</strong>：</p>
+<ul>
+<li>所有私家車<strong>只能開到山下的國王湖大停車場</strong>，湖區為國家公園核心保護區，無任何環湖公路。</li>
+<li>停好車後，需步行經過商店街至碼頭，全程仰賴安靜無污染的<strong>電動觀光渡輪</strong>。</li>
+</ul>
+</blockquote>
+<h3>🅿️ 全日核心停泊：【國王湖大停車場 (Großparkplatz Königssee)】</h3>
+<ul>
+<li><strong>推薦理由</strong>：
+<ol>
+<li><strong>全區唯一且最大的官方停車場</strong>：距離湖畔遊船碼頭步行僅 5–7 分鐘。</li>
+<li><strong>完善設施</strong>：設有公廁、旅遊諮詢中心、商店街，並配備有慢充與快充 EV 充電樁。</li>
+</ol>
+</li>
+<li><strong>建議抵達停妥時間</strong>：<strong>2026-10-10 08:00 – 08:15 前停妥</strong>（搶搭早班船）</li>
+<li><strong>從飯店出發車程</strong>：從 Explorer Hotel（位於 Schönau am Königssee 市區 Hofreitstr. 7）出發，沿 Alte Königsseer Str. 往南直行僅 <strong>2.5 公里（開車 3–4 分鐘即達！）</strong>，完全不經貝希特斯加登市區。</li>
+<li><strong>導航地址</strong>：<code>Seestraße 3, 83471 Schönau am Königssee, Germany</code></li>
+<li><strong>Google Maps 搜尋</strong>：<code>Großparkplatz Königssee</code></li>
+<li><strong>GPS 座標</strong>：<code>47.5925, 12.9861</code></li>
+<li><strong>Google Maps 直達連結</strong>：<a href="https://www.google.com/maps/place/Gro%C3%9Fparkplatz+K%C3%B6nigssee/@47.5925,12.9861,17z">開啟導航</a></li>
+<li><strong>收費標準</strong>：
+<ul>
+<li><strong>單日票（Tagesticket）</strong>：<strong>€9.00</strong>（停放超過 3 小時即算單日票，全日有效）。</li>
+<li>支援自動繳費機（現金投幣 / 信用卡感應 / Parkster App）。</li>
+</ul>
+</li>
+<li><strong>從停車場前往碼頭動線</strong>：
+<ul>
+<li>停好車後，朝湖水方向沿著 <strong>Seestraße（湖濱步行街）</strong> 漫步約 400 公尺（約 5–7 分鐘）。</li>
+<li>穿過兩旁的巴伐利亞木屋、紀念品店與麵包咖啡香氣，即抵達湖畔碼頭與售票處（<strong>Königssee Seelände</strong>）。</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2>📍 Day 11（10/11，週日）：貝希特斯加登東側環線（阿姆巴赫峽谷 ➔ 羅斯菲爾德全景公路）</h2>
+<blockquote>
+<p>💡 <strong>東側順遊優勢</strong>：阿姆巴赫峽谷與羅斯菲爾德公路「北收費站」完全同在貝希特斯加登東北側，兩地車程僅約 10 分鐘，動線極順！</p>
+</blockquote>
+<h3>🅿️ 上午核心目標：【阿姆巴赫峽谷停車場 (Parkplatz Almbachklamm / Kugelmühle)】</h3>
+<ul>
+<li><strong>推薦理由</strong>：
+<ol>
+<li><strong>免費停車</strong>：峽谷入口大理石彈珠水車磨坊 (Kugelmühle) 旁設有專屬免費停車場。</li>
+<li><strong>生活補給無虞</strong>：停車場旁即是歷史悠久的 <strong>Gasthof Kugelmühle</strong>，週日正常營業，有戶外露天咖啡座提供熱湯、香腸、咖啡與甜點。</li>
+</ol>
+</li>
+<li><strong>建議停放時間</strong>：<strong>2026-10-11 09:30 – 12:30</strong></li>
+<li><strong>導航地址</strong>：<code>Kugelmühlweg 18, 83487 Marktschellenberg, Germany</code></li>
+<li><strong>Google Maps 搜尋</strong>：<code>Parkplatz Almbachklamm</code></li>
+<li><strong>GPS 座標</strong>：<code>47.6698, 13.0336</code></li>
+<li><strong>Google Maps 直達連結</strong>：<a href="https://www.google.com/maps/place/Parkplatz+Almbachklamm/@47.6698,13.0336,17z">開啟導航</a></li>
+<li><strong>門票與步道</strong>：
+<ul>
+<li>現場售票亭購票（約 €6.00 / 出示住宿卡 Kurkarte 約 €5.00）。</li>
+<li>沿著木棧道穿過激流峽谷與 29 道小瀑布，漫步至蘇爾策瀑布 (Sulzer Wasserfall) 折返，往返約 1.5–2 小時。</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h3>🏔️ 下午核心目標：【羅斯菲爾德全景公路 (Roßfeldpanoramastraße)】</h3>
+<ul>
+<li><strong>上山收費站</strong>：<strong><code>Mautstelle Nord（北收費站）</code></strong>（離阿姆巴赫峽谷僅 8–10 公里 / 開車約 10–12 分鐘！）</li>
+<li><strong>導航地址</strong>：<code>Roßfeldstraße 150, 83471 Berchtesgaden, Germany</code></li>
+<li><strong>GPS 座標</strong>：<code>47.6565, 13.0768</code></li>
+<li><strong>Google Maps 直達連結</strong>：<a href="https://www.google.com/maps/place/Mautstelle+Nord+Ro%C3%9Ffeldpanoramastra%C3%9Fe/@47.6565,13.0768,17z">開啟導航</a></li>
+<li><strong>通行費</strong>：小客車一車一票約 <strong>€9.00</strong>（全車包價，山頂所有觀景停車場全數免費停放）。</li>
+<li><strong>頂峰必停觀景點</strong>：<strong><code>Aussichtspunkt Roßfeld (Scheitelstrecke / Ahornkaser)</code></strong>
+<ul>
+<li>GPS 座標：<code>47.6253, 13.0898</code></li>
+<li>特色：最高點海拔 1,570m，德奧國界稜線木棧道，360 度俯瞰奧地利薩爾斯堡平原與阿爾卑斯雪山。午後陽光順光，視野極其壯麗。</li>
+</ul>
+</li>
+<li><strong>下山動線</strong>：沿著環狀公路順時針行駛，從南收費站（Mautstelle Süd）下山，順路回到 Schönau am Königssee 的 Explorer Hotel（下山車程約 15 分鐘，Tesla 動能回充 10–15% 電量）。</li>
+</ul>
+<hr />
+<h2>📍 Day 12（10/12，週一）：阿爾卑斯 ➔ 慕尼黑（還車與重返市區）</h2>
+<h3>☕ 中繼咖啡休息站：【Dinzler Kaffeerösterei am Irschenberg】</h3>
+<ul>
+<li><strong>推薦理由</strong>：A8 高速公路旁極富盛名的精品咖啡烘焙館與景觀餐廳，設有大停車場與 Tesla 超充站。</li>
+<li><strong>建議停靠時間</strong>：<strong>2026-10-12 12:00 – 13:00</strong>（喝咖啡、吃輕食早午餐）</li>
+<li><strong>導航地址</strong>：<code>Wendling 15, 83737 Irschenberg, Germany</code></li>
+<li><strong>Google Maps 搜尋</strong>：<code>Dinzler Kaffeerösterei Irschenberg</code></li>
+<li><strong>GPS 座標</strong>：<code>47.8174, 11.8906</code></li>
+<li><strong>Google Maps 直達連結</strong>：<a href="https://www.google.com/maps/place/Dinzler+Kaffeer%C3%B6sterei/@47.8174,11.8906,17z">開啟導航</a></li>
+</ul>
+<hr />
+<h3>🚗 還車核心地點：【Nextmove 慕尼黑站點】</h3>
+<ul>
+<li><strong>重要性</strong>：<strong>7 日純電自駕圓滿還車點</strong>（合約號：VNN-26-106734-2，車牌：W-AK 7176E）。</li>
+<li><strong>還車截止時間</strong>：<strong>2026-10-12 16:00 前</strong>（建議 15:00–15:30 抵達辦理驗車）</li>
+<li><strong>導航地址</strong>：<code>Landsberger Str. 318D, 80687 München, Germany</code></li>
+<li><strong>GPS 座標</strong>：<code>48.1408, 11.5072</code></li>
+<li><strong>Google Maps 直達連結</strong>：<a href="https://www.google.com/maps/place/nextmove+M%C3%BCnchen/@48.1408,11.5072,17z">開啟導航</a></li>
+<li><strong>充電政策</strong>：已加購 <strong>€39 充電一口價</strong>，<strong>免滿電還車</strong>，電量剩餘 10%–20% 亦可直接交車！</li>
+<li><strong>銜接飯店</strong>：還車完畢後，提著行李步行僅需 1 分鐘（50 公尺）即抵達隔壁今晚入住之 <strong>Premier Inn München City West</strong>（Landsberger Str. 312，已全額付清）。</li>
+</ul>
+<hr />
+<h2>📍 Day 13（10/13，週二）：慕尼黑 ➔ 返程搭機</h2>
+<ul>
+<li><strong>前往機場方式</strong>：
+<ul>
+<li>從飯店步行 5 分鐘至 <strong>S-Bahn Laim 站</strong> 或 <strong>Hirschgarten 站</strong>。</li>
+<li>搭乘 <strong>S1</strong> 或 <strong>S8</strong>（每 10–20 分鐘一班，約 40 分鐘一車直達慕尼黑機場航廈）。</li>
+<li>抵達機場辦理國泰航空登機手續與退稅，圓滿返台！</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</body>
+</html>
