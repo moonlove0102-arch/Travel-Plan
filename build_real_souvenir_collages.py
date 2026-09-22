@@ -43,7 +43,7 @@ products = {
     # Austria
     "austria_fuerst": "https://upload.wikimedia.org/wikipedia/commons/8/87/Box_of_Original_Mozart_Kugeln_F%C3%BCrst.jpg",
     "austria_mirabell": "https://m.media-amazon.com/images/I/91yWsZMQ-8L._SL1500_.jpg",
-    "austria_manner": "https://upload.wikimedia.org/wikipedia/commons/0/00/2020-02-20-Manner_Neapolitane-Lokal_K-4775.jpg",
+    "austria_manner": "https://brands-of-germany.com/cdn/shop/files/MannerOriginalNeapolitaner75g.jpg",
     "austria_salt": "https://shop.salzwelten.at/shop/Produktbilder/Speisesalz/Bad%20Ischler/Natursalz/image-thumb__2771__coreshop_productList/95220-bi-ns-streuer-glas-gemuese-garten-90g-3D-05.webp",
     
     # Germany
@@ -148,7 +148,7 @@ build_collage(czech_items, out_dir / "souvenirs_czech_real.jpg", cols=2)
 austria_items = [
     ("austria_fuerst", "Fürst 原創手工莫札特巧克力 (銀藍版實品照)"),
     ("austria_mirabell", "Mirabell 超市版莫札特巧克力 (實品照)"),
-    ("austria_manner", "Manner 經典榛果威化餅 (實品照)"),
+    ("austria_manner", "Manner 經典榛果威化餅 (粉紅原裝包裝照)"),
     ("austria_salt", "Salzwelten 阿爾卑斯天然調味岩鹽 (實品照)")
 ]
 build_collage(austria_items, out_dir / "souvenirs_austria_real.jpg", cols=2)
